@@ -1,3 +1,4 @@
+//global variables
 let coords = []
 let map = null
 let resultMarkers = []
@@ -25,12 +26,14 @@ function currentPos() {
     })
     .addTo(map);
     
-    //add current location marker 
-    const marker = L.marker(latLong)
-    marker
-        .addTo(map)
-        .bindPopup('<p><b>You are here.</b></p>')
-        .openPopup()
+    //create custom marker from image
+    const redPin = L.icon({
+        iconUrl: './assets/red-pin.png',
+        iconSize: [38, 38],
+        iconAnchor: [19, 38],
+        popupAnchor: [0, -30],
+    })
+    L.marker(latLong, {icon: redPin}).addTo(map).bindPopup('<p><b>You are here.</b></p>').openPopup()
 }
 
 //adding foursquare api
@@ -59,6 +62,7 @@ async function foursquare(place) {
     console.log(resultMarkers)
 }
 
+//remove markers function 
 function removeMarkers(){
     resultMarkers.forEach(marker => {
         marker.remove()
